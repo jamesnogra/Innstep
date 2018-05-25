@@ -1,0 +1,111 @@
+/* logo color is #7dd2eb */
+
+html, body {
+    font-family: 'Work Sans', sans-serif;
+    background-color: #F2F2F2;
+    height: 100%;
+}
+
+input, button, submit { border:none; }
+
+#app {
+    height: 100%;
+}
+
+.bg-color-logo {
+    background-color: #7dd2eb;
+    color: #FFFFFF;
+}
+
+.text-color-logo {
+    color: #7dd2eb;
+}
+
+.height-100 {
+    height: 100px;
+}
+
+.nav-li {
+    position: relative;
+    padding-top: 40px!important;
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #404040!important;
+    font-weight: medium;
+    text-align: center;
+}
+
+.nav-li:hover {
+    background-color: #F2F2F2!important;
+    border-bottom: 5px solid #7dd2eb;
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+#center-large-image-container {
+    width: 100%;
+    height: 500px;
+    background-color: #CCCCCC;
+    background-image: url('../images/guy-working.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+#large-image-text {
+    font-size: 36px;
+    text-align: center;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 2px #404040;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); 
+}
+
+#search-filter-container {
+    background-color: #404040;
+    padding: 20px;
+    margin-top: -45px;
+}
+
+.custom-text-input {
+    padding: 10px;
+    font-size: 18px;
+    width: 100%;
+    height: 47px;
+}
+
+.custom-button:hover {
+    background-color: #65c8e7;
+}
+
+#footer-container {
+    background-color: #404040;
+    width: 100%;
+    color: #bfbfbf;
+    position: absolute;
+    bottom: 0;
+}
+
+.footer-columns {
+    padding: 20px;
+}
+
+.footer-item-title {
+    text-transform: uppercase;
+    font-size: 18px;
+    color: #FFFFFF!important;
+    font-weight: medium;
+}
+
+.footer-hr {
+    padding: 0px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #595959;
+}

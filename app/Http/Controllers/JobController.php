@@ -9,6 +9,13 @@ use Auth;
 class JobController extends Controller
 {
 
+    public $job_categories = ["Marketing", "Sales", "IT", "Teaching"];
+
+    public function index()
+    {
+        return view('index', ['job_categories'=>$this->job_categories]);
+    }
+
     public function allJobs()
     {
         $jobs = Job::all();
@@ -17,12 +24,18 @@ class JobController extends Controller
     
     public function createJob()
     {
-        return view('create-job');
+        return view('create-job', ['job_categories'=>$this->job_categories]);
     }
 
     public function postCreateJob(Request $request)
     {
         $data = $request->except('_token');
+        //upload first the logo
+        $this->validate($request, [
+            'logo_banner' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8148',
+        ]);
+        $filename = $request->logo_banner->store('logo_banner');
+        $data['logo_banner'] = $filename;
         $data['code'] = bin2hex(random_bytes(8));
         $data['user_id'] = Auth::user()->id;
         $data['show_salary'] = (isset($data['show_salary'])) ? 1 : 0;

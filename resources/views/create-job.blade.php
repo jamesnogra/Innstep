@@ -5,16 +5,15 @@
 @section('content')
     <div class="container">
         <h1>Create Job</h1>
-        <form method="POST" action="{{ action('JobController@createJob') }}">
+        <form method="POST" action="{{ action('JobController@createJob') }}" enctype="multipart/form-data">
             @csrf
             <p>Title: <input type="text" name="title" class="form-control" /></p>
             <p>
                 <span>Category: </span>
                 <select name="category" class="form-control">
-                    <option value="Clerical">Clerical</option>
-                    <option value="IT">IT</option>
-                    <option value="Arts">Arts</option>
-                    <option value="Marketing">Marketing</option>
+                    @foreach ($job_categories as $job_category)
+                        <option value="{{ $job_category }}">{{ $job_category }}</option>
+                    @endforeach
                 </select>
             </p>
             <p>
