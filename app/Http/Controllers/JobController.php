@@ -13,8 +13,14 @@ class JobController extends Controller
 
     public function index()
     {
-        $jobs = Job::all();
-        return view('index', ['job_categories'=>$this->job_categories, 'jobs'=>$jobs]);
+        $jobs = Job::orderBy('created_at', 'DESC')->limit(5)->get();
+        return view('index', ['job_categories'=>$this->job_categories, 'jobs'=>$jobs, 'paginate'=>false]);
+    }
+
+    public function indexAll()
+    {
+        $jobs = Job::orderBy('created_at', 'DESC')->paginate(5);
+        return view('index', ['job_categories'=>$this->job_categories, 'jobs'=>$jobs, 'paginate'=>true]);
     }
 
     public function allJobs()
@@ -32,11 +38,14 @@ class JobController extends Controller
     {
         $data = $request->except('_token');
         //upload first the logo
-        $this->validate($request, [
-            'logo_banner' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8148',
-        ]);
-        $filename = $request->logo_banner->store('logo_banner');
-        $data['logo_banner'] = $filename;
+        $data['logo_banner'] = '';
+        if ($request->logo_banner) {
+            $this->validate($request, [
+                'logo_banner' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8148',
+            ]);
+            $filename = $request->logo_banner->store('logo_banner');
+            $data['logo_banner'] = $filename;
+        }
         $data['code'] = bin2hex(random_bytes(8));
         $data['user_id'] = Auth::user()->id;
         $data['show_salary'] = (isset($data['show_salary'])) ? 1 : 0;

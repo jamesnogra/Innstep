@@ -20,6 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/', 'JobController@index');
+Route::get('/all', 'JobController@indexAll');
 
 Route::get('/jobs', 'JobController@allJobs');
 Route::get('/jobs/create-job', 'JobController@createJob')->middleware('auth');

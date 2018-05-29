@@ -61,6 +61,12 @@
             </div>
         @endforeach
 
+        @if ($paginate)
+            <center>{{ $jobs->links() }}</center>
+        @else
+            <div class="index-bottom-button"><a class="large-button" href="{{ action('JobController@indexAll') }}">View All Jobs</a></div>
+        @endif
+
     </div>
 
 @endsection

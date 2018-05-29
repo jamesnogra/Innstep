@@ -88,6 +88,24 @@ input, button, submit { border:none; }
     background-color: #65c8e7;
 }
 
+.index-bottom-button {
+    text-align: center;
+    margin: 40px;
+    font-size: 16px;
+}
+
+.large-button {
+    background-color: #404040;
+    color: #FFFFFF;
+    padding: 20px;
+    clear: both;
+}
+.large-button:hover {
+    background-color: #65c8e7;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
 #index-main-container {
     /*margin-bottom: 250px;*/
 }
