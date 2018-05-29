@@ -21,7 +21,7 @@
                 <select name="type" class="form-control">
                     <option value="Full Time">Full Time</option>
                     <option value="Part Time">Part Time</option>
-                    <option value="Contractual">Contractual</option>
+                    <option value="Seasonal">Seasonal</option>
                 </select>
             </p>
             <p>

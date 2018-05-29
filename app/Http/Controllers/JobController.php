@@ -13,7 +13,8 @@ class JobController extends Controller
 
     public function index()
     {
-        return view('index', ['job_categories'=>$this->job_categories]);
+        $jobs = Job::all();
+        return view('index', ['job_categories'=>$this->job_categories, 'jobs'=>$jobs]);
     }
 
     public function allJobs()

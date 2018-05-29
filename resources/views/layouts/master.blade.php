@@ -49,11 +49,11 @@
             </nav>
         </div>
 
-        <main class="py-4">
+        <main class="py-4" id="index-main-container">
             @yield('content')
         </main>
 
-        <nav id="footer-container" class="navbar navbar-fixed-bottom">
+        <footer class="footer" id="footer-container">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4 footer-columns">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-        </nav>
+        </footer>
 
     </div>
 
