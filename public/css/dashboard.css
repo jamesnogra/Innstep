@@ -1,0 +1,79 @@
+/*DASHBOARD main banner*/
+#top-banner {
+    width: 100%;
+    height: 150px;
+    background-color: #e6e6e6;
+    z-index: 10;
+    position: fixed;
+}
+#top-banner-logo {
+    float: left;
+    padding-left: 2%;
+    height: 50%;
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
+}
+#top-banner-right {
+    float: right;
+    padding-right: 2%;
+    height: auto;
+    position: relative;
+    top: 50%;
+    transform: perspective(1px) translateY(-50%);
+}
+#top-banner-username {
+    font-size: 24px;
+    font-weight: bold;
+}
+.top-banner-float-left {
+    float: left;
+}
+.top-banner-with-right-border {
+    border-right: 2px solid #CCCCCC;
+    margin-right: 20px;
+}
+
+/*DASHBOARD left navigation*/
+#left-navigation {
+    min-height: 100%;
+    float: left;
+    width: 20%;
+    background-color: #dfdfdf;
+    box-shadow: 0px 0px 10px #4d4d4d;
+    z-index: 5;
+    position: fixed;
+    top: 150px;
+    left: 0px;
+}
+.left-navigation-each-container {
+    font-size: 20px;
+    padding: 20px;
+    border-bottom: 1px solid #e6e6e6;
+    cursor: pointer;
+}
+.left-navigation-each-container:hover {
+    background-color: #e6e6e6;
+}
+#right-navigation {
+    float: right;
+    width: 80%;
+}
+.add-padding-20 {
+    padding: 20px;
+}
+.main-content-container {
+    height: 100%;
+}
+#right-navigation {
+    overflow-y: auto;
+    height: 100%;
+    position: fixed;
+    top: 150px;
+    right: 0px;
+}
+.add-margin-to-bottom {
+    margin-bottom: 150px;
+}
+
+/*Some other admin CSS*/

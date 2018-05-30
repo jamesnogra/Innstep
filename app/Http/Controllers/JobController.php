@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Job;
+use App\Job_Application;
 use Auth;
 
 class JobController extends Controller
@@ -25,7 +26,7 @@ class JobController extends Controller
 
     public function allJobs()
     {
-        $jobs = Job::all();
+        $jobs = Job::orderBy('created_at', 'DESC')->paginate(10);
         return view('all-jobs', ['jobs'=>$jobs]);
     }
     
@@ -46,17 +47,67 @@ class JobController extends Controller
             $filename = $request->logo_banner->store('logo_banner');
             $data['logo_banner'] = $filename;
         }
-        $data['code'] = bin2hex(random_bytes(8));
+        $data['code'] = bin2hex(random_bytes(4));
         $data['user_id'] = Auth::user()->id;
         $data['show_salary'] = (isset($data['show_salary'])) ? 1 : 0;
         Job::create($data);
-        return redirect(action('JobController@allJobs'));;
+        return redirect(action('JobController@allJobs'));
     }
 
     public function deleteJob(Request $request)
     {
         Job::where('id', $request->id)->where('code', $request->code)->delete();
-        return redirect(action('JobController@allJobs'));;
+        return redirect(action('JobController@allJobs'));
+    }
+
+    public function editJob(Request $request)
+    {
+        $job = Job::where('id', $request->id)->where('code', $request->code)->first();
+        return view('edit-job', ['job'=>$job, 'job_categories'=>$this->job_categories]);
+    }
+
+    public function postEditJob(Request $request)
+    {
+        $data = $request->except('_token', 'id', 'code', 'logo_banner');
+        //update the logo if there is an updated
+        if ($request->logo_banner) {
+            $this->validate($request, [
+                'logo_banner' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:8148',
+            ]);
+            $filename = $request->logo_banner->store('logo_banner');
+            $data['logo_banner'] = $filename;
+        }
+        $data['show_salary'] = (isset($data['show_salary'])) ? 1 : 0;
+        Job::where('id', $request->id)->where('code', $request->code)->update($data);
+        return redirect(action('JobController@allJobs'));
+    }
+
+    public function showJobDetails(Request $request)
+    {
+        $job = Job::where('id', $request->id)->where('code', $request->code)->first();
+        return view('show-job-details', ['job'=>$job]);
+    }
+
+    public function applyJob(Request $request)
+    {
+        $data = $request->except('_token');
+        //upload first the resume
+        $data['resume'] = '';
+        if ($request->resume) {
+            $this->validate($request, [
+                'resume' => 'required|mimes:doc,docx,odt,rtf,pdf|max:900',
+            ]);
+            $filename = $request->resume->store('resume');
+            $data['resume'] = $filename;
+        }
+        $data['code'] = bin2hex(random_bytes(16));
+        Job_Application::create($data);
+        return redirect(action('JobController@applyJobSuccess'));
+    }
+
+    public function applyJobSuccess()
+    {
+        return view('apply-job-success');
     }
 
 }

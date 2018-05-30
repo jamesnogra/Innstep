@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div id="center-large-image-container">
+    <div id="center-large-image-container" style="background-image:url('{{ asset('images/guy-working.jpg') }}')">
         <div id="large-image-text">Find Jobs, Employment, & Career Opportunities</div>
     </div>
 
@@ -29,34 +29,53 @@
         <h3>Featured Jobs</h3>
         @foreach($jobs as $job)
             <div class="row job-each-container">
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="job-each-logo">
-                        <img src="{{ ($job->logo_banner) ? $job->logo_banner : 'images/sample.png' }}" height="100%" width="100%" />
+                        <img src="{{ ($job->logo_banner) ? asset($job->logo_banner) : asset('images/sample.png') }}" height="100%" width="100%" />
                     </div>
                 </div>
-                <div class="col-sm-7 job-each-info">
+                <div class="col-sm-8 job-each-info">
+                    <div>&nbsp;</div>
                     <div class="job-each-title">{{ $job->title }}</div>
+                    <div>&nbsp;</div>
                     <div class="job-each-bottom-container">
                         <div class="row">
-                            <div class="col-md-3"><span class="glyphicon glyphicon-map-marker light-blue-text" aria-hidden="true"></span> Location</div>
+                            <div class="col-md-6">
+                                <span class="glyphicon glyphicon-map-marker light-blue-text" aria-hidden="true"></span>&nbsp;
+                                @if ($job->house_street)
+                                    <span>{{ $job->house_street }}, </span>
+                                @endif
+                                @if ($job->city)
+                                    <span>{{ $job->city }}, </span>
+                                @endif
+                                @if ($job->state)
+                                    <span>{{ $job->state }}, </span>
+                                @endif
+                                @if ($job->zip_code)
+                                    <span>{{ $job->zip_code }}</span>
+                                @endif
+                            </div>
                             <div class="col-md-3"><span class="glyphicon glyphicon-th-list light-blue-text" aria-hidden="true"></span> {{ $job->category }}</div>
-                            <div class="col-md-4">
-                                @if ($job->salary)
+                            <div class="col-md-3">
+                                @if ($job->salary && $job->show_salary==1)
                                     <span class="glyphicon glyphicon-usd light-blue-text" aria-hidden="true"></span> {{ $job->salary }}
                                 @endif
                             </div>
-                            <div class="col-md-2">&nbsp;</div>
                         </div>
                     </div>
                 </div>
+                <div>&nbsp;</div>
+                <div>&nbsp;</div>
                 <div class="col-sm-2 job-each-right-button-container">
-                    @if ($job->type=='Full Time')
-                        <div class="job-each-right-buttons job-each-right-buttons-ft">{{ $job->type }}</div>
-                    @elseif ($job->type=='Part Time')
-                        <div class="job-each-right-buttons job-each-right-buttons-pt">{{ $job->type }}</div>
-                    @elseif ($job->type=='Seasonal')
-                        <div class="job-each-right-buttons job-each-right-buttons-s">{{ $job->type }}</div>
-                    @endif
+                    <a href="{{ action('JobController@showJobDetails', ['id'=>$job->id, 'code'=>$job->code, 'title'=>$job->title]) }}" class="remove-text-decoration-a">
+                        @if ($job->type=='Full Time')
+                            <div class="job-each-right-buttons job-each-right-buttons-ft">{{ $job->type }}</div>
+                        @elseif ($job->type=='Part Time')
+                            <div class="job-each-right-buttons job-each-right-buttons-pt">{{ $job->type }}</div>
+                        @elseif ($job->type=='Seasonal')
+                            <div class="job-each-right-buttons job-each-right-buttons-s">{{ $job->type }}</div>
+                        @endif
+                    </a>
                 </div>
             </div>
         @endforeach
