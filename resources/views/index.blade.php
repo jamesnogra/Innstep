@@ -10,17 +10,19 @@
 
     <div id="search-filter-container" class="container">
         <div class="row">
-            <div class="col-sm-3"><input type="text" class="custom-text-input" name="job_title" id="job_title" placeholder="Job Title" /></div>
-            <div class="col-sm-3"><input type="text" class="custom-text-input" name="city_state" id="city_state" placeholder="City / State" /></div>
-            <div class="col-sm-3">
-                <select name="job_category" id="job_category" class="custom-text-input">
-                    <option value="All" selected>All</option>
-                    @foreach ($job_categories as $job_category)
-                        <option value="{{ $job_category }}">{{ $job_category }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-sm-3"><button class="custom-text-input bg-color-logo custom-button" type="button">Filter</button></div>
+            <form method="GET" action="{{ action('JobController@indexAll') }}">
+                <div class="col-sm-3"><input type="text" class="custom-text-input" name="job_title" id="job_title" placeholder="Job Title" value="{{ (isset($request['job_title'])) ? $request['job_title'] : '' }}" /></div>
+                <div class="col-sm-3"><input type="text" class="custom-text-input" name="city_state" id="city_state" placeholder="City / State" value="{{ (isset($request['city_state'])) ? $request['city_state'] : '' }}" /></div>
+                <div class="col-sm-3">
+                    <select name="job_category" id="job_category" class="custom-text-input">
+                        <option value="" selected>All</option>
+                        @foreach ($job_categories as $job_category)
+                            <option value="{{ $job_category }}" {{ (isset($request['job_category']) && $request['job_category']==$job_category) ? 'selected' : '' }}>{{ $job_category }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-3"><button class="custom-text-input bg-color-logo custom-button" type="submit">Filter</button></div>
+            </form>
         </div>
     </div>
 
@@ -28,6 +30,7 @@
 
         <h3>Featured Jobs</h3>
         @foreach($jobs as $job)
+        <a href="{{ action('JobController@showJobDetails', ['unique_title'=>$job->unique_title]) }}" class="remove-text-decoration-a">
             <div class="row job-each-container">
                 <div class="col-sm-2">
                     <div class="job-each-logo">
@@ -35,7 +38,7 @@
                     </div>
                 </div>
                 <div class="col-sm-8 job-each-info">
-                    <div>&nbsp;</div>
+                    <div style="height:10px;">&nbsp;</div>
                     <div class="job-each-title">{{ $job->title }}</div>
                     <div>&nbsp;</div>
                     <div class="job-each-bottom-container">
@@ -67,7 +70,7 @@
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
                 <div class="col-sm-2 job-each-right-button-container">
-                    <a href="{{ action('JobController@showJobDetails', ['id'=>$job->id, 'code'=>$job->code, 'title'=>$job->title]) }}" class="remove-text-decoration-a">
+                    <!--<a href="{{ action('JobController@showJobDetails', ['id'=>$job->id, 'code'=>$job->code, 'title'=>$job->title]) }}" class="remove-text-decoration-a">-->
                         @if ($job->type=='Full Time')
                             <div class="job-each-right-buttons job-each-right-buttons-ft">{{ $job->type }}</div>
                         @elseif ($job->type=='Part Time')
@@ -75,9 +78,10 @@
                         @elseif ($job->type=='Seasonal')
                             <div class="job-each-right-buttons job-each-right-buttons-s">{{ $job->type }}</div>
                         @endif
-                    </a>
+                    <!--</a>-->
                 </div>
             </div>
+        </a>
         @endforeach
 
         @if ($paginate)

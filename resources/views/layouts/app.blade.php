@@ -91,7 +91,7 @@
         <div id="left-navigation">
             <div class="left-navigation-each-container" onClick="window.location='{{ action('JobController@allJobs') }}';"><span class="glyphicon glyphicon-cog light-blue-text" aria-hidden="true"></span>&nbsp;&nbsp;Dashboard</div>
             <div class="left-navigation-each-container" onClick="window.location='{{ action('JobController@createJob') }}';"><span class="glyphicon glyphicon-plus light-blue-text" aria-hidden="true"></span>&nbsp;&nbsp;Create Job</div>
-            <div class="left-navigation-each-container"><span class="glyphicon glyphicon-user light-blue-text" aria-hidden="true"></span>&nbsp;&nbsp;Applicants</div>
+            <div class="left-navigation-each-container" onClick="window.location='{{ action('JobController@allJobApplications') }}';"><span class="glyphicon glyphicon-user light-blue-text" aria-hidden="true"></span>&nbsp;&nbsp;Applicants</div>
         </div>
         <div id="right-navigation">
             <main class="add-padding-20 add-margin-to-bottom">

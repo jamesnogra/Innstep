@@ -41,9 +41,9 @@
                         <a class="navbar-brand height-100" href="/"><img src="{{ asset('images/logo.png') }}" height="100%" /></a>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#" class="height-100 nav-li"><div>Job Listings</div></a></li>
-                        <li><a href="#" class="height-100 nav-li"><div>About</div></a></li>
-                        <li><a href="#" class="height-100 nav-li"><div>Contact</div></a></li>
+                        <li><a href="/all" class="height-100 nav-li"><div>Job Listings</div></a></li>
+                        <li><a href="/about" class="height-100 nav-li"><div>About</div></a></li>
+                        <li><a href="/contact" class="height-100 nav-li"><div>Contact</div></a></li>
                     </ul>
                 </div>
             </nav>

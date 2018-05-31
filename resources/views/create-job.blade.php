@@ -3,7 +3,7 @@
 @section('subtitle', 'Create Job')
 
 @section('content')
-    <h1>Create Job</h1>
+    <h3>Create Job</h3>
     <form method="POST" action="{{ action('JobController@createJob') }}" enctype="multipart/form-data">
         @csrf
         <p>Title: <input type="text" name="title" class="form-control" /></p>

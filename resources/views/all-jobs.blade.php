@@ -3,7 +3,7 @@
 @section('subtitle', 'All Jobs')
 
 @section('content')
-        <h1>Recent Jobs</h1>
+        <h3>Recent Jobs</h3>
         <!--<table class="table">
             <thead>
                 <tr>
@@ -73,7 +73,8 @@
                 <div>&nbsp;</div>
                 <div>&nbsp;</div>
                 <div class="col-sm-3 job-each-right-button-container">
-                    <button type="button" class="medium-button-blue" onClick="window.open('{{ action("JobController@showJobDetails", ["id"=>$job->id, "code"=>$job->code, "title"=>$job->title]) }}', '_blank');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> View</button>&nbsp;
+                    <button type="button" class="medium-button-blue" onClick="window.open('{{ action("JobController@showJobDetails", ["unique_title"=>$job->unique_title]) }}', '_blank');"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> View</button>&nbsp;
+                    <button type="button" class="medium-button-blue" onClick="window.location='{{ action("JobController@jobApplications", ["id"=>$job->id, "code"=>$job->code]) }}';"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Applicants ({{ $job->_number_of_applicants($job->id) }})</button>&nbsp;
                     <button type="button" class="medium-button-blue" onClick="window.location='{{ action("JobController@editJob", ["id"=>$job->id, "code"=>$job->code]) }}';"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Edit</button>&nbsp;
                     <button type="button" class="medium-button-red" onClick="if(confirm('Are you sure you want to delete this?')){ window.location='{{ action("JobController@deleteJob", ["id"=>$job->id, "code"=>$job->code]) }}'; }"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete</button>
                 </div>

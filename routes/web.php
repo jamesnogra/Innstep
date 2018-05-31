@@ -21,7 +21,9 @@ Auth::routes();
 
 Route::get('/', 'JobController@index');
 Route::get('/all', 'JobController@indexAll');
-Route::get('/details/{id}/{code}/{title}', 'JobController@showJobDetails');
+Route::get('/job-details/{unique_title}', 'JobController@showJobDetails');
+Route::get('/about', 'JobController@about');
+Route::get('/contact', 'JobController@contact');
 
 Route::get('/jobs', 'JobController@allJobs')->middleware('auth');
 Route::post('/jobs/apply', 'JobController@applyJob');
@@ -29,8 +31,10 @@ Route::get('/jobs/apply-success', 'JobController@applyJobSuccess');
 Route::get('/jobs/create-job', 'JobController@createJob')->middleware('auth');
 Route::post('/jobs/create-job', 'JobController@postCreateJob')->middleware('auth');
 Route::get('/jobs/delete-job/{id}/{code}', 'JobController@deleteJob')->middleware('auth');
-Route::get('/jobs/edit-job', 'JobController@editJob');
+Route::get('/jobs/edit-job', 'JobController@editJob')->middleware('auth');
 Route::post('/jobs/post-edit-job', 'JobController@postEditJob')->middleware('auth');
+Route::get('/jobs/applications/{id}/{code}', 'JobController@jobApplications')->middleware('auth');
+Route::get('/jobs/applications-all/', 'JobController@allJobApplications')->middleware('auth');
 
 
 //route for the images

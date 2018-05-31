@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('subtitle', 'Find Jobs, Employment, and Career Opportunities')
+@section('subtitle', $job->title)
 
 @section('content')
 

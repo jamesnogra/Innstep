@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Job;
 use App\Job_Application;
 use Auth;
@@ -18,10 +19,25 @@ class JobController extends Controller
         return view('index', ['job_categories'=>$this->job_categories, 'jobs'=>$jobs, 'paginate'=>false]);
     }
 
-    public function indexAll()
+    public function indexAll(Request $request)
     {
-        $jobs = Job::orderBy('created_at', 'DESC')->paginate(5);
-        return view('index', ['job_categories'=>$this->job_categories, 'jobs'=>$jobs, 'paginate'=>true]);
+        $jobs = Job::orderBy('created_at', 'DESC');
+        if ($request->job_title) {
+            $jobs = $jobs->where('title', 'LIKE', '%'.$request->job_title.'%');
+        }
+        if ($request->job_category) {
+            $jobs = $jobs->where('category', 'LIKE', '%'.$request->job_category.'%');
+        }
+        if ($request->city_state) {
+            $jobs = $jobs->where(function ($query) use ($request) {
+                $query->where('city', 'LIKE', '%'.$request->city_state.'%')->orWhere('state', 'LIKE', '%'.$request->city_state.'%');
+            });
+        }
+        $jobs = $jobs->paginate(10);
+        $jobs->appends(['job_title'=>$request->job_title]);
+        $jobs->appends(['city_state'=>$request->city_state]);
+        $jobs->appends(['job_category'=>$request->job_category]);
+        return view('index', ['job_categories'=>$this->job_categories, 'jobs'=>$jobs, 'paginate'=>true, 'request'=>$request->all()]);
     }
 
     public function allJobs()
@@ -47,7 +63,12 @@ class JobController extends Controller
             $filename = $request->logo_banner->store('logo_banner');
             $data['logo_banner'] = $filename;
         }
-        $data['code'] = bin2hex(random_bytes(4));
+        $data['code'] = bin2hex(random_bytes(2));
+        //check if there are exactly the same title 
+        $test_job = Job::where('title', $request->title)->first();
+        if ($test_job) {
+            $data['unique_title'] = $request->title . "-" . $data['code'];
+        }
         $data['user_id'] = Auth::user()->id;
         $data['show_salary'] = (isset($data['show_salary'])) ? 1 : 0;
         Job::create($data);
@@ -84,7 +105,7 @@ class JobController extends Controller
 
     public function showJobDetails(Request $request)
     {
-        $job = Job::where('id', $request->id)->where('code', $request->code)->first();
+        $job = Job::where('unique_title', $request->unique_title)->first();
         return view('show-job-details', ['job'=>$job]);
     }
 
@@ -105,9 +126,30 @@ class JobController extends Controller
         return redirect(action('JobController@applyJobSuccess'));
     }
 
+    public function jobApplications(Request $request)
+    {
+        $job = Job::where('id', $request->id)->where('code', $request->code)->first();
+        $job_applications = Job_Application::where('job_id', $request->id)->get();
+        return view('job-applications', ['job'=>$job, 'job_applications'=>$job_applications]);
+    }
+
+    public function allJobApplications() {
+        return view('all-job-applications', ['job_applications'=>Job_Application::all()]);
+    }
+
     public function applyJobSuccess()
     {
         return view('apply-job-success');
+    }
+
+    public function about()
+    {
+        return view('about');
+    }
+
+    public function contact()
+    {
+        return view('contact');
     }
 
 }

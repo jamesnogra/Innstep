@@ -172,6 +172,11 @@ input, button, submit { border:none; }
     padding: 10px;
     background-color: #FFFFFF;
     margin-bottom: 20px;
+    text-decoration: none;
+    color: #404040;
+}
+.job-each-container:hover {
+    background-color: #f2f2f2;
 }
 .job-each-logo {
     width: 120px;

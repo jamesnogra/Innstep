@@ -1,5 +1,7 @@
 @extends('layouts.master')
 
+@section('subtitle', 'Login')
+
 @section('content')
 
 <div>&nbsp;</div>

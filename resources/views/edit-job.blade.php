@@ -3,7 +3,7 @@
 @section('subtitle', 'Edit Job')
 
 @section('content')
-    <h1>Edit Job</h1>
+    <h3>Edit Job</h3>
     <form method="POST" action="{{ action('JobController@postEditJob') }}" enctype="multipart/form-data">
         @csrf
         <input type="hidden" name="id" value="{{ $job->id }}" />
