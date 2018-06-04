@@ -5,7 +5,7 @@
 @section('content')
     <h3>Edit Job</h3>
     <form method="POST" action="{{ action('JobController@postEditJob') }}" enctype="multipart/form-data">
-        @csrf
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="id" value="{{ $job->id }}" />
         <input type="hidden" name="code" value="{{ $job->code }}" />
         <p>Title: <input type="text" name="title" class="form-control" value="{{ $job->title }}" /></p>
