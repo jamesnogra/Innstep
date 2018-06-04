@@ -18,7 +18,7 @@
             <div class="col-sm-7">
                 <div class="job-each-title">{{ $job->title }}</div>
                 <div><b>{{ $job->company }}</b></div>
-                <div>&nbsp;</div>
+                <div><span class="glyphicon glyphicon-education light-blue-text" aria-hidden="true"></span>&nbsp;{{ $job->level }}</div>
                 <div>
                     <span class="glyphicon glyphicon-map-marker light-blue-text" aria-hidden="true"></span>&nbsp;
                     @if ($job->house_street)

@@ -34,6 +34,14 @@
             </select>
         </p>
         <p>
+            <span>Job Level: </span>
+            <select name="level" class="form-control">
+                @foreach ($job_levels as $job_level)
+                    <option value="{{ $job_level }}">{{ $job_level }}</option>
+                @endforeach
+            </select>
+        </p>
+        <p>
             <span>Monthly Salary:</span>
             <input type="text" name="salary" class="form-control" />
             <span><input type="checkbox" name="show_salary" id="show_salary" /> <label for="show_salary">Display this in the job listings?</label></span>

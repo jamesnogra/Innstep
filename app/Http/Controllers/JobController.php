@@ -12,6 +12,7 @@ class JobController extends Controller
 {
 
     public $job_categories = ["Marketing", "Sales", "IT", "Teaching"];
+    public $job_levels = ["Fresh Graduate", "Junior Level", "Senior Level", "Managerial Level"];
 
     public function index()
     {
@@ -48,7 +49,7 @@ class JobController extends Controller
     
     public function createJob()
     {
-        return view('create-job', ['job_categories'=>$this->job_categories]);
+        return view('create-job', ['job_categories'=>$this->job_categories, 'job_levels'=>$this->job_levels]);
     }
 
     public function postCreateJob(Request $request)
@@ -92,7 +93,7 @@ class JobController extends Controller
     public function editJob(Request $request)
     {
         $job = Job::where('id', $request->id)->where('code', $request->code)->first();
-        return view('edit-job', ['job'=>$job, 'job_categories'=>$this->job_categories]);
+        return view('edit-job', ['job'=>$job, 'job_categories'=>$this->job_categories, 'job_levels'=>$this->job_levels]);
     }
 
     public function postEditJob(Request $request)
