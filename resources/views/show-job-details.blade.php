@@ -88,7 +88,7 @@
             </div>
         @endif
         <form method="POST" action="{{ action('JobController@applyJob') }}" enctype="multipart/form-data">
-            @csrf
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <input type="hidden" name="job_id" value="{{ $job->id }}" />
             <div class="row add-margin-10">
                 <div class="col-sm-6"><input type="text" name="first_name" class="custom-text-input custom-text-input-light-border" placeholder="First Name" /></div>

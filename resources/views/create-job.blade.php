@@ -5,7 +5,7 @@
 @section('content')
     <h3>Create Job</h3>
     <form method="POST" action="{{ action('JobController@createJob') }}" enctype="multipart/form-data">
-        @csrf
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

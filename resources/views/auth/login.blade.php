@@ -15,7 +15,7 @@
         <div style="width:50%; margin:0 auto;">
             <div>
                 <form method="POST" action="{{ route('login') }}">
-                    @csrf
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="col-md-12">
                         <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} custom-text-input custom-text-input-light-border" name="email" value="{{ old('email') }}" required autofocus placeholder="Email">
                         @if ($errors->has('email'))
