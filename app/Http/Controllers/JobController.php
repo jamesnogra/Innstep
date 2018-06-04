@@ -72,11 +72,11 @@ class JobController extends Controller
             $data['logo_banner'] = $filename;
         }
         $data['code'] = bin2hex(random_bytes(2));
-        $data['unique_title'] = $data['title'];
+        $data['unique_title'] = str_replace("/", "", $data['title']);
         //check if there are exactly the same title 
         $test_job = Job::where('title', $data['title'])->first();
         if ($test_job) {
-            $data['unique_title'] = $data['title'] . "-" . $data['code'];
+            $data['unique_title'] = str_replace("/", "", $data['title']) . "-" . $data['code'];
         }
         $data['user_id'] = Auth::user()->id;
         $data['show_salary'] = (isset($data['show_salary'])) ? 1 : 0;
