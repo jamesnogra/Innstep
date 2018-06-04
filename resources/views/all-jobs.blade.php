@@ -63,9 +63,7 @@
                             </div>
                             <div class="col-md-3"><span class="glyphicon glyphicon-th-list light-blue-text" aria-hidden="true"></span> {{ $job->category }}</div>
                             <div class="col-md-3">
-                                @if ($job->salary && $job->show_salary==1)
-                                    <span class="glyphicon glyphicon-usd light-blue-text" aria-hidden="true"></span> {{ $job->salary }}
-                                @endif
+                                <span class="glyphicon glyphicon-usd light-blue-text" aria-hidden="true"></span> {{ $job->salary }}
                             </div>
                         </div>
                     </div>
