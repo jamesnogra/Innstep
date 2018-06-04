@@ -6,6 +6,15 @@
     <h3>Create Job</h3>
     <form method="POST" action="{{ action('JobController@createJob') }}" enctype="multipart/form-data">
         @csrf
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <p>Title: <input type="text" name="title" class="form-control" /></p>
         <p>Company: <input type="text" name="company" class="form-control" /></p>
         <p>

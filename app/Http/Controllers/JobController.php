@@ -54,6 +54,13 @@ class JobController extends Controller
     public function postCreateJob(Request $request)
     {
         $data = $request->except('_token');
+        $this->validate($request, [
+            'title' => 'required',
+            'company' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'zip_code' => 'required',
+        ]);
         //upload first the logo
         $data['logo_banner'] = '';
         if ($request->logo_banner) {
@@ -64,10 +71,11 @@ class JobController extends Controller
             $data['logo_banner'] = $filename;
         }
         $data['code'] = bin2hex(random_bytes(2));
+        $data['unique_title'] = $data['title'];
         //check if there are exactly the same title 
-        $test_job = Job::where('title', $request->title)->first();
+        $test_job = Job::where('title', $data['title'])->first();
         if ($test_job) {
-            $data['unique_title'] = $request->title . "-" . $data['code'];
+            $data['unique_title'] = $data['title'] . "-" . $data['code'];
         }
         $data['user_id'] = Auth::user()->id;
         $data['show_salary'] = (isset($data['show_salary'])) ? 1 : 0;
@@ -112,6 +120,12 @@ class JobController extends Controller
     public function applyJob(Request $request)
     {
         $data = $request->except('_token');
+        $this->validate($request, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email_address' => 'required|email',
+            'mobile_number' => 'required',
+        ]);
         //upload first the resume
         $data['resume'] = '';
         if ($request->resume) {

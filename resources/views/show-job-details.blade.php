@@ -73,6 +73,20 @@
     </div>
     <div>&nbsp;</div>
     <div class="container">
+        @if ($errors->any())
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    window.location.hash='#applicant-errors';
+                });
+            </script>
+            <div class="alert alert-danger" id="applicant-errors">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form method="POST" action="{{ action('JobController@applyJob') }}" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="job_id" value="{{ $job->id }}" />
