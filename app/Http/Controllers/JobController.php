@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\User;
 use App\Job;
 use App\Job_Application;
 use Auth;
@@ -39,6 +42,39 @@ class JobController extends Controller
         $jobs->appends(['city_state'=>$request->city_state]);
         $jobs->appends(['job_category'=>$request->job_category]);
         return view('index', ['job_categories'=>$this->job_categories, 'jobs'=>$jobs, 'paginate'=>true, 'request'=>$request->all()]);
+    }
+
+    public function allAdmins()
+    {
+        $admins = User::all();
+        return view('all-admins', ['admins'=>$admins]);
+    }
+
+    public function deleteAdminUser(Request $request)
+    {
+        User::where('id', $request->id)->delete();
+        return redirect(action('JobController@allAdmins'));
+    }
+
+    public function addAdminUser()
+    {
+        return view('auth.register');
+    }
+
+    public function postAddAdminUser(Request $request)
+    {
+        $data = $request->except('_token');
+        Validator::make($data, [
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+        return redirect(action('JobController@allAdmins'));
     }
 
     public function allJobs()

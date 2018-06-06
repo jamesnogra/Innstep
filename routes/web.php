@@ -35,6 +35,10 @@ Route::get('/jobs/edit-job', 'JobController@editJob')->middleware('auth');
 Route::post('/jobs/post-edit-job', 'JobController@postEditJob')->middleware('auth');
 Route::get('/jobs/applications/{id}/{code}', 'JobController@jobApplications')->middleware('auth');
 Route::get('/jobs/applications-all/', 'JobController@allJobApplications')->middleware('auth');
+Route::get('/jobs/all-admins', 'JobController@allAdmins')->middleware('auth');
+Route::get('/jobs/delete-admin-user/{id}', 'JobController@deleteAdminUser')->middleware('auth');
+Route::get('/jobs/add-admin-user', 'JobController@addAdminUser')->middleware('auth');
+Route::post('/jobs/add-admin-user', 'JobController@postAddAdminUser')->middleware('auth');
 
 
 //route for the images
