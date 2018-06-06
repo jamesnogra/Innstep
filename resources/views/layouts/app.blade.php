@@ -77,7 +77,7 @@
         <div id="top-banner-right">
             <div>
                 <form  id="logout-form" action="{{ route('logout') }}" method="POST">
-                    @csrf
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <button type="submit" class="job-each-right-buttons job-each-right-buttons-ft">Logout</button>
                 </form>
             </div>
